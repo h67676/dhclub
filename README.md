@@ -33,49 +33,31 @@
     </script>
     <style>
         body {
-            background-color: #040814;
-            background-image: 
-                radial-gradient(circle at 50% 15%, rgba(0, 150, 255, 0.15) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(0, 100, 200, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 85%, rgba(0, 180, 255, 0.1) 0%, transparent 40%);
-            background-attachment: fixed;
+            background-color: #060a17;
             color: #ffffff;
         }
 
-        .bg-watermark {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(90vw, 700px);
-            opacity: 0.12;
-            filter: blur(12px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
         .card-custom {
-            background: linear-gradient(135deg, rgba(8, 20, 42, 0.75) 0%, rgba(5, 14, 30, 0.85) 100%);
-            border: 1px solid rgba(0, 162, 255, 0.25);
-            backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #0d1527;
+            border: 1px solid rgba(0, 183, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
         .card-custom:hover {
             border-color: rgba(0, 213, 255, 0.6);
-            box-shadow: 0 0 25px rgba(0, 175, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(0, 175, 255, 0.15);
             transform: translateY(-4px);
         }
 
         .input-box {
-            background: rgba(4, 12, 26, 0.85);
+            background-color: #09101f;
             border: 1px solid rgba(0, 150, 255, 0.25);
             transition: all 0.25s ease;
         }
 
         .input-box:focus-within {
             border-color: #00d5ff;
-            box-shadow: 0 0 15px rgba(0, 213, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 213, 255, 0.25);
         }
 
         .section-title::after {
@@ -86,17 +68,10 @@
             background: #00bdff;
             margin: 10px auto 0;
             border-radius: 2px;
-            box-shadow: 0 0 8px #00bdff;
         }
     </style>
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-cyanAccent selection:text-black relative overflow-x-hidden">
-
-    <!-- Background Watermark SVG -->
-    <svg class="bg-watermark" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="300" cy="180" r="160" stroke="#00bdff" stroke-width="4" stroke-dasharray="10 8"/>
-        <text x="300" y="210" font-family="'Outfit', sans-serif" font-weight="900" font-size="120" fill="#00bdff" text-anchor="middle">DH</text>
-    </svg>
 
     <!-- Header Navigation -->
     <header class="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
