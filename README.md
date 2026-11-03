@@ -375,9 +375,9 @@
   </section>
 
   <!-- FOOTER CLEAN -->
-  <footer>
+<footer>
     © 2026 Digital Hub Club — Tous droits réservés.
-  </footer>
+</footer>
 
   <script>
     const form = document.getElementById("contactForm");
