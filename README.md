@@ -1,412 +1,331 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>DH CLUB - Digital Hub Club</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
-      background: #080d1a;
-      color: white;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* BACKGROUND LOGO FLOU BACKGROUND */
-    .bg-logo-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bg-logo-layer img {
-      width: clamp(320px, 60vw, 750px);
-      height: auto;
-      opacity: 0.18;
-      filter: blur(28px);
-      transform: scale(1.1);
-    }
-
-    /* NAVBAR */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 8%;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: #38bdf8;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    nav ul {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    nav a {
-      color: #e2e8f0;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #38bdf8;
-      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-
-    /* INTRO HERO */
-    #intro {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: clamp(80px, 15vh, 140px) 20px;
-    }
-
-    #intro h1 {
-      font-size: clamp(40px, 7vw, 68px);
-      font-weight: 800;
-      margin-bottom: 20px;
-      letter-spacing: -1px;
-    }
-
-    #intro span {
-      color: #38bdf8;
-      text-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
-    }
-
-    #intro p {
-      color: #94a3b8;
-      font-size: clamp(16px, 2vw, 20px);
-      margin-bottom: 35px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #38bdf8, #0284c7);
-      color: #080d1a;
-      padding: 14px 32px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.3);
-      transition: 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(56, 189, 248, 0.5);
-    }
-
-    /* SECTIONS */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: clamp(50px, 8vw, 80px) 8%;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 45px;
-      color: #38bdf8;
-      font-size: clamp(24px, 4vw, 32px);
-      font-weight: 700;
-    }
-
-    /* CARDS GRID */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 30px 24px;
-      border-radius: 18px;
-      border: 1px solid rgba(56, 189, 248, 0.15);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: #38bdf8;
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.2);
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      font-size: 19px;
-    }
-
-    .card p {
-      color: #94a3b8;
-      line-height: 1.65;
-      font-size: 14.5px;
-    }
-
-    /* CONTACT FORM */
-    form {
-      max-width: 580px;
-      margin: auto;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 30px;
-      border-radius: 20px;
-      border: 1px solid rgba(56, 189, 248, 0.15);
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 15px 18px;
-      margin-bottom: 18px;
-      background: rgba(8, 13, 26, 0.7);
-      border: 1px solid #334155;
-      border-radius: 12px;
-      color: white;
-      font-size: 15px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
-    }
-
-    textarea {
-      height: 130px;
-      resize: vertical;
-    }
-
-    button {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-      color: #080d1a;
-      border: none;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 4px 18px rgba(56, 189, 248, 0.3);
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.5);
-    }
-
-    #message {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: 600;
-      color: #38bdf8;
-    }
-
-    /* FOOTER CLEANED */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 30px 20px;
-      color: #94a3b8;
-      background: rgba(15, 23, 42, 0.85);
-      border-top: 1px solid rgba(56, 189, 248, 0.1);
-      font-size: 14px;
-    }
-
-    /* RESPONSIVE DESIGN (IPHONE, ANDROID & PC) */
-    @media (max-width: 680px) {
-      nav {
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px;
-      }
-
-      nav ul {
-        gap: 16px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      #intro {
-        padding: 60px 16px;
-      }
-
-      form {
-        padding: 20px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- BACKGROUND LOGO FLOU -->
-  <div class="bg-logo-layer">
-    <img src="https://i.ibb.co/6y4nJpx/dh-logo.jpg" alt="DH HUB Logo">
-  </div>
-
-  <!-- NAVBAR -->
-  <nav>
-    <div class="logo">⚡ DH CLUB</div>
-    <ul>
-      <li><a href="#intro">Intro</a></li>
-      <li><a href="#specialites">Spécialités</a></li>
-      <li><a href="#projets">Projets</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- INTRO -->
-  <section id="intro">
-    <h1>Digital <span>Hub</span></h1>
-    <p>Créativité, technologie et innovation. Bienvenue dans notre communauté.</p>
-    <a href="#specialites" class="btn">Découvrir</a>
-  </section>
-
-  <!-- SPECIALITES -->
-  <section id="specialites">
-    <h2>Nos spécialités</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>💻 Programmation</h3>
-        <p>HTML, CSS, JavaScript et création de sites web.</p>
-      </div>
-
-      <div class="card">
-        <h3>🎨 Design graphique</h3>
-        <p>Création de logos, affiches et identités visuelles.</p>
-      </div>
-
-      <div class="card">
-        <h3>🌐 3D et Animation</h3>
-        <p>Modélisation 3D et création avec Blender.</p>
-      </div>
-
-      <div class="card">
-        <h3>📊 Gestion de projets</h3>
-        <p>Planification, organisation et gestion efficace des projets digitaux.</p>
-      </div>
-
-      <div class="card">
-        <h3>🖼️ Histoire de l'art</h3>
-        <p>Étude des courants artistiques, esthétique et inspiration visuelle.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJETS -->
-  <section id="projets">
-    <h2>Nos projets</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Développement Web</h3>
-        <p>Création de sites web modernes.</p>
-      </div>
-
-      <div class="card">
-        <h3>Création graphique</h3>
-        <p>Logos, affiches et design.</p>
-      </div>
-
-      <div class="card">
-        <h3>Modélisation 3D</h3>
-        <p>Création de modèles et environnements 3D.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contactez-nous</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Votre nom" required>
-      <input type="email" name="email" placeholder="Votre email" required>
-      <textarea name="message" placeholder="Votre message" required></textarea>
-      <button type="submit">Envoyer le message</button>
-    </form>
-    <p id="message"></p>
-  </section>
-
-  <!-- FOOTER CLEAN -->
-<footer>
-    © 2026 Digital Hub Club — Tous droits réservés.
-</footer>
-
-  <script>
-    const form = document.getElementById("contactForm");
-    const message = document.getElementById("message");
-
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-      message.textContent = "Envoi en cours...";
-      const data = new FormData(form);
-
-      try {
-        const response = await fetch("https://formspree.io/f/xeewnkek", {
-          method: "POST",
-          body: data,
-          headers: {
-            Accept: "application/json"
-          }
-        });
-
-        if (response.ok) {
-          message.textContent = "Message envoyé avec succès !";
-          form.reset();
-        } else {
-          message.textContent = "Erreur lors de l'envoi.";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Hub Club - DH CLUB</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter & Outfit) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navyBg: '#050a18',
+                        cardBg: 'rgba(10, 24, 48, 0.65)',
+                        cardBorder: 'rgba(0, 183, 255, 0.25)',
+                        cyanAccent: '#00bdff',
+                        cyanGlow: '#00d5ff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
         }
-      } catch (error) {
-        message.textContent = "Erreur de connexion.";
-      }
-    });
-  </script>
+    </script>
+    <style>
+        body {
+            background-color: #040814;
+            background-image: 
+                radial-gradient(circle at 50% 15%, rgba(0, 150, 255, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(0, 100, 200, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 85%, rgba(0, 180, 255, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: #ffffff;
+        }
+
+        .bg-watermark {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(90vw, 700px);
+            opacity: 0.12;
+            filter: blur(12px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-custom {
+            background: linear-gradient(135deg, rgba(8, 20, 42, 0.75) 0%, rgba(5, 14, 30, 0.85) 100%);
+            border: 1px solid rgba(0, 162, 255, 0.25);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-custom:hover {
+            border-color: rgba(0, 213, 255, 0.6);
+            box-shadow: 0 0 25px rgba(0, 175, 255, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .input-box {
+            background: rgba(4, 12, 26, 0.85);
+            border: 1px solid rgba(0, 150, 255, 0.25);
+            transition: all 0.25s ease;
+        }
+
+        .input-box:focus-within {
+            border-color: #00d5ff;
+            box-shadow: 0 0 15px rgba(0, 213, 255, 0.3);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            background: #00bdff;
+            margin: 10px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 8px #00bdff;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-cyanAccent selection:text-black relative overflow-x-hidden">
+
+    <!-- Background Watermark SVG -->
+    <svg class="bg-watermark" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="300" cy="180" r="160" stroke="#00bdff" stroke-width="4" stroke-dasharray="10 8"/>
+        <text x="300" y="210" font-family="'Outfit', sans-serif" font-weight="900" font-size="120" fill="#00bdff" text-anchor="middle">DH</text>
+    </svg>
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
+        <!-- Logo -->
+        <a href="#" class="font-display font-extrabold text-2xl tracking-tight flex items-center gap-1.5 text-white">
+            <span>DH</span>
+            <span class="text-cyanAccent">CLUB</span>
+        </a>
+
+        <!-- Menu -->
+        <nav class="hidden sm:flex items-center gap-8 font-medium text-sm text-slate-300">
+            <a href="#intro" class="text-cyanAccent border-b-2 border-cyanAccent pb-1">Intro</a>
+            <a href="#specialites" class="hover:text-cyanAccent transition-colors">Spécialités</a>
+            <a href="#projets" class="hover:text-cyanAccent transition-colors">Projets</a>
+            <a href="#contact" class="hover:text-cyanAccent transition-colors">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-5xl mx-auto px-6 pt-12 pb-20 relative z-10 flex flex-col gap-24 text-center">
+
+        <!-- Hero Section -->
+        <section id="intro" class="flex flex-col items-center pt-8">
+            <h1 class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white mb-4">
+                Digital <span class="text-cyanAccent">Hub</span>
+            </h1>
+            <p class="text-slate-300 text-lg sm:text-xl font-normal mb-8 max-w-lg">
+                Créativité, technologie et innovation.
+            </p>
+            <a href="#specialites" class="px-8 py-3 rounded-full bg-cyanAccent hover:bg-cyanGlow text-black font-semibold text-sm transition-all shadow-lg shadow-cyanAccent/30 hover:shadow-cyanAccent/50 active:scale-95 flex items-center gap-2">
+                <span>Découvrir</span>
+                <i data-lucide="arrow-down" class="w-4 h-4"></i>
+            </a>
+        </section>
+
+        <!-- Nos Spécialités -->
+        <section id="specialites" class="scroll-mt-20">
+            <h2 class="font-display text-3xl font-bold text-white mb-10 section-title">
+                Nos spécialités
+            </h2>
+
+            <!-- Grid 4 Top + 1 Bottom Centered -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
+                <!-- Programmation -->
+                <div class="card-custom rounded-2xl p-6 flex flex-col items-center text-center">
+                    <i data-lucide="code" class="w-10 h-10 text-cyanAccent mb-4"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Programmation</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        HTML, CSS, JavaScript et création de sites web.
+                    </p>
+                </div>
+
+                <!-- Design Graphique -->
+                <div class="card-custom rounded-2xl p-6 flex flex-col items-center text-center">
+                    <i data-lucide="palette" class="w-10 h-10 text-cyanAccent mb-4"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Design Graphique</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Création de logos, affiches et identités visuelles.
+                    </p>
+                </div>
+
+                <!-- 3D et Animation -->
+                <div class="card-custom rounded-2xl p-6 flex flex-col items-center text-center">
+                    <i data-lucide="box" class="w-10 h-10 text-cyanAccent mb-4"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">3D et Animation</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Modélisation 3D et création avec Blender.
+                    </p>
+                </div>
+
+                <!-- Gestion de projets -->
+                <div class="card-custom rounded-2xl p-6 flex flex-col items-center text-center">
+                    <i data-lucide="clipboard-check" class="w-10 h-10 text-cyanAccent mb-4"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Gestion de projets</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Planification, suivi et organisation des projets.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Centered 5th Card -->
+            <div class="flex justify-center">
+                <div class="card-custom rounded-2xl p-6 flex flex-col items-center text-center w-full sm:w-1/2 lg:w-1/3">
+                    <i data-lucide="landmark" class="w-10 h-10 text-cyanAccent mb-4"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Histoire de l'art</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Culture, patrimoine et analyse artistique.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nos Projets -->
+        <section id="projets" class="scroll-mt-20">
+            <h2 class="font-display text-3xl font-bold text-white mb-10 section-title">
+                Nos projets
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Développement Web -->
+                <div class="card-custom rounded-2xl p-8 flex flex-col items-center text-center">
+                    <i data-lucide="globe" class="w-12 h-12 text-cyanAccent mb-5"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Développement Web</h3>
+                    <p class="text-slate-400 text-xs">
+                        Sites modernes et performants.
+                    </p>
+                </div>
+
+                <!-- Création 2D -->
+                <div class="card-custom rounded-2xl p-8 flex flex-col items-center text-center">
+                    <i data-lucide="image" class="w-12 h-12 text-cyanAccent mb-5"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Création 2D</h3>
+                    <p class="text-slate-400 text-xs">
+                        Logos & affiches.
+                    </p>
+                </div>
+
+                <!-- Modélisation 3D -->
+                <div class="card-custom rounded-2xl p-8 flex flex-col items-center text-center">
+                    <i data-lucide="box" class="w-12 h-12 text-cyanAccent mb-5"></i>
+                    <h3 class="font-display text-lg font-bold text-white mb-2">Modélisation 3D</h3>
+                    <p class="text-slate-400 text-xs">
+                        Décors & environnements.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contactez-nous -->
+        <section id="contact" class="scroll-mt-20 max-w-3xl mx-auto w-full">
+            <h2 class="font-display text-3xl font-bold text-white mb-10 section-title">
+                Contactez-nous
+            </h2>
+
+            <div class="card-custom rounded-2xl p-6 sm:p-8 text-left">
+                <form id="contactForm" action="https://formspree.io/f/xeewnkek" method="POST" class="flex flex-col gap-4">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Name Input -->
+                        <div class="input-box rounded-xl px-4 py-3 flex items-center gap-3">
+                            <i data-lucide="user" class="w-5 h-5 text-slate-400 shrink-0"></i>
+                            <input type="text" name="name" required placeholder="Votre nom" class="bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-500">
+                        </div>
+
+                        <!-- Email Input -->
+                        <div class="input-box rounded-xl px-4 py-3 flex items-center gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-slate-400 shrink-0"></i>
+                            <input type="email" name="email" required placeholder="Votre email" class="bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-500">
+                        </div>
+                    </div>
+
+                    <!-- Message Area -->
+                    <div class="input-box rounded-xl px-4 py-3 flex items-start gap-3">
+                        <i data-lucide="message-square" class="w-5 h-5 text-slate-400 shrink-0 mt-0.5"></i>
+                        <textarea name="message" rows="4" required placeholder="Votre message" class="bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-500 resize-none"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" class="mt-2 w-full py-3.5 rounded-xl bg-cyanAccent hover:bg-cyanGlow text-black font-semibold text-sm transition-all shadow-md shadow-cyanAccent/30 active:scale-[0.99] flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Envoyer le message</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 border-t border-slate-800/60 relative z-10">
+        <p>© 2026 Digital Hub Club (DH CLUB). Tous droits réservés.</p>
+        
+        <!-- Social Icons -->
+        <div class="flex items-center gap-5 text-slate-300">
+            <a href="#" aria-label="YouTube" class="hover:text-cyanAccent transition-colors">
+                <i data-lucide="youtube" class="w-5 h-5"></i>
+            </a>
+            <a href="#" aria-label="Discord" class="hover:text-cyanAccent transition-colors">
+                <i data-lucide="disc" class="w-5 h-5"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="hover:text-cyanAccent transition-colors">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="hover:text-cyanAccent transition-colors">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Lucide Init & Form Script -->
+    <script>
+        lucide.createIcons();
+
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Envoi en cours...</span>`;
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    contactForm.reset();
+                    submitBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Message envoyé !`;
+                    lucide.createIcons();
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        lucide.createIcons();
+                    }, 4000);
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    lucide.createIcons();
+                }
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                lucide.createIcons();
+            }
+        });
+    </script>
 </body>
 </html>
